@@ -5,4 +5,6 @@ module.exports = {
   ADMIN_API_LOCAL: 'http://localhost:4623',
   BUSOWNER_API_LOCAL: 'http://localhost:8002',
   DRIVER_API_LOCAL: 'http://localhost:8003',
+  AUTH_API_LOCAL: 'http://localhost:8001',
+  AUTH_API: 'http://44.202.73.200:8001',
 };

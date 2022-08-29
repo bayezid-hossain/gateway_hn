@@ -55,10 +55,19 @@ const {
   ADMIN_API_LOCAL,
   DRIVER_API_LOCAL,
   BUSOWNER_API,
+  AUTH_API,
+  AUTH_API_LOCAL,
 } = require('./URLS');
 
 const optionsAdmin = {
   target: ADMIN_API_LOCAL,
+  changeOrigin: true,
+  logger: console,
+  onError: error,
+  onProxyReq: restream,
+};
+const optionsAuth = {
+  target: AUTH_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
@@ -82,12 +91,13 @@ const optionsDriver = {
 const adminProxy = createProxyMiddleware(optionsAdmin);
 const driverProxy = createProxyMiddleware(optionsDriver);
 const busownerProxy = createProxyMiddleware(optionsBusOwner);
+const authProxy = createProxyMiddleware(optionsAuth);
 
 app.use('/api/v1/busowner', busownerProxy);
 
 app.use('/api/v1/driver', driverProxy);
 app.use('/api/v1/admin', adminProxy);
-
+app.use('/api/v1/auth', authProxy);
 app.use(
   bodyParser.urlencoded({
     extended: false,
