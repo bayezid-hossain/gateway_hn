@@ -60,7 +60,7 @@ const {
 } = require('./URLS');
 
 const optionsAdmin = {
-  target: ADMIN_API_LOCAL,
+  target: ADMIN_API,
   changeOrigin: true,
   logger: console,
   onError: error,
