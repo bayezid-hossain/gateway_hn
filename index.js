@@ -13,7 +13,7 @@ const error = catchAsyncErrors(async (err, req, res, options) => {
     .status(400)
     .json({
       status: 'Fail',
-      message: 'There was an error connecting to the service',
+      message: `There was an error connecting to the service ${err}`,
     })
     .send();
 });
@@ -41,7 +41,7 @@ const restream = async function (proxyReq, req, res, options) {
 
     proxyReq.write(formdataUser);
   } else {
-    const body = JSON.stringify({ ...req.body });
+    const body = JSON.stringify({ ...req.body, formType: 'json-body' });
     proxyReq.setHeader('Content-Type', 'application/json');
     proxyReq.setHeader('Content-Length', Buffer.byteLength(body));
     proxyReq.write(body);
@@ -75,14 +75,14 @@ const optionsAuth = {
 };
 
 const optionsBusOwner = {
-  target: BUSOWNER_API_LOCAL,
+  target: BUSOWNER_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
 };
 const optionsDriver = {
-  target: DRIVER_API_LOCAL,
+  target: DRIVER_API,
   changeOrigin: true,
   logger: console,
   onError: error,
