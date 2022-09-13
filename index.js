@@ -60,7 +60,7 @@ const {
 } = require('./URLS');
 
 const optionsAdmin = {
-  target: ADMIN_API,
+  target: ADMIN_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
@@ -75,14 +75,14 @@ const optionsAuth = {
 };
 
 const optionsBusOwner = {
-  target: BUSOWNER_API,
+  target: BUSOWNER_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
 };
 const optionsDriver = {
-  target: DRIVER_API,
+  target: DRIVER_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
