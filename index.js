@@ -54,50 +54,77 @@ const {
   BUSOWNER_API_LOCAL,
   ADMIN_API_LOCAL,
   DRIVER_API_LOCAL,
+  QR_API_LOCAL,
+  QR_API,
   BUSOWNER_API,
   AUTH_API,
   AUTH_API_LOCAL,
 } = require('./URLS');
 
 const optionsAdmin = {
-  target: ADMIN_API_LOCAL,
+  target: ADMIN_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
+  onProxyRes: function (proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  },
 };
 const optionsAuth = {
-  target: AUTH_API_LOCAL,
+  target: AUTH_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
+  onProxyRes: function (proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  },
 };
 
 const optionsBusOwner = {
-  target: BUSOWNER_API_LOCAL,
+  target: BUSOWNER_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
+  onProxyRes: function (proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    console.log(proxyRes.headers);
+  },
+};
+const optionsQR = {
+  target: QR_API,
+  changeOrigin: true,
+  logger: console,
+  onError: error,
+  onProxyReq: restream,
+  onProxyRes: function (proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  },
 };
 const optionsDriver = {
-  target: DRIVER_API_LOCAL,
+  target: DRIVER_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
+  onProxyRes: function (proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  },
 };
 const adminProxy = createProxyMiddleware(optionsAdmin);
 const driverProxy = createProxyMiddleware(optionsDriver);
 const busownerProxy = createProxyMiddleware(optionsBusOwner);
 const authProxy = createProxyMiddleware(optionsAuth);
+const qrProxy = createProxyMiddleware(optionsQR);
 
 app.use('/api/v1/busowner', busownerProxy);
 
 app.use('/api/v1/driver', driverProxy);
 app.use('/api/v1/admin', adminProxy);
 app.use('/api/v1/auth', authProxy);
+app.use('/api/v1/qr', qrProxy);
 app.use(
   bodyParser.urlencoded({
     extended: false,

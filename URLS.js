@@ -7,4 +7,6 @@ module.exports = {
   DRIVER_API_LOCAL: 'http://localhost:8003',
   AUTH_API_LOCAL: 'http://localhost:8001',
   AUTH_API: 'http://44.202.73.200:8001',
+  QR_API: 'http://44.202.73.200:8007',
+  QR_API_LOCAL: 'http://localhost:8007',
 };
