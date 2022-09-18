@@ -6,6 +6,13 @@ var bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app = express();
 app.use(express.json());
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
+
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
 const catchAsyncErrors = require('./middleware/catchAsyncErrors');
 
 const error = catchAsyncErrors(async (err, req, res, options) => {
@@ -62,56 +69,40 @@ const {
 } = require('./URLS');
 
 const optionsAdmin = {
-  target: ADMIN_API,
+  target: ADMIN_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
-  onProxyRes: function (proxyRes, req, res) {
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-  },
 };
 const optionsAuth = {
-  target: AUTH_API,
+  target: AUTH_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
-  onProxyRes: function (proxyRes, req, res) {
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-  },
 };
 
 const optionsBusOwner = {
-  target: BUSOWNER_API,
+  target: BUSOWNER_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
-  onProxyRes: function (proxyRes, req, res) {
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-    console.log(proxyRes.headers);
-  },
 };
 const optionsQR = {
-  target: QR_API,
+  target: QR_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
-  onProxyRes: function (proxyRes, req, res) {
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-  },
 };
 const optionsDriver = {
-  target: DRIVER_API,
+  target: DRIVER_API_LOCAL,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
-  onProxyRes: function (proxyRes, req, res) {
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-  },
 };
 const adminProxy = createProxyMiddleware(optionsAdmin);
 const driverProxy = createProxyMiddleware(optionsDriver);
