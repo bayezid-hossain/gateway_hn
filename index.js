@@ -69,14 +69,14 @@ const {
 } = require('./URLS');
 
 const optionsAdmin = {
-  target: ADMIN_API_LOCAL,
+  target: ADMIN_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
 };
 const optionsAuth = {
-  target: AUTH_API_LOCAL,
+  target: AUTH_API,
   changeOrigin: true,
   logger: console,
   onError: error,
@@ -84,21 +84,21 @@ const optionsAuth = {
 };
 
 const optionsBusOwner = {
-  target: BUSOWNER_API_LOCAL,
+  target: BUSOWNER_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
 };
 const optionsQR = {
-  target: QR_API_LOCAL,
+  target: QR_API,
   changeOrigin: true,
   logger: console,
   onError: error,
   onProxyReq: restream,
 };
 const optionsDriver = {
-  target: DRIVER_API_LOCAL,
+  target: DRIVER_API,
   changeOrigin: true,
   logger: console,
   onError: error,

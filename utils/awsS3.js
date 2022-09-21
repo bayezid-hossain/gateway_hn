@@ -19,7 +19,20 @@ function getFilesStream(req, res, next) {
     Key: fileKey,
     Bucket: bucketName,
   };
-
-  s3.getObject(downloadParams).createReadStream().pipe(res);
+  s3.headObject(downloadParams)
+    .promise()
+    .then(() => {
+      // This will not throw error anymore
+      s3.getObject(downloadParams).createReadStream().pipe(res);
+    })
+    .catch((error) => {
+      if (error.statusCode === 404) {
+        // Catching NoSuchKey
+        res.json({
+          success: false,
+          message: error.code,
+        });
+      }
+    });
 }
 exports.getFilesStream = getFilesStream;
